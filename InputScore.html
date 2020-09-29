@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成绩录入</title>
+    <!-- 存储服务 -->
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.2.0/dist/av-min.js"></script>
+</head>
+
+<body>
+    <!-- <span>输入姓名</span> &nbsp;&nbsp; <input id="nameInput" type="text">
+    <br>
+    <br> -->
+    <span>输入手机号</span> &nbsp;&nbsp; <input id="phoneNumInput" type="text">
+    <br>
+    <br>
+    <span>输入成绩</span> &nbsp;&nbsp; <input id="scoreInput" type="text">
+    <br>
+    <br>
+    <button id="button">点击录入</button>
+
+    <script>
+        const { Query, User } = AV;
+        AV.init({
+            appId: "xSY1ggILh6dCv279HLcVqmKq-MdYXbMMI",
+            appKey: "oOCFKdB2PUkhJlcLTE8xWQUa",
+            serverURL: "https://please-replace-with-your-customized.domain.com"
+        });
+        console.log(AV);
+        // 点击获取上面input里面的value值，去数据库去查询获取对应的数据
+        button.addEventListener('click', function (e) {
+            console.log('录入成绩');
+            // let name = document.getElementById('nameInput').value;
+            let phoneNumber = Number(document.getElementById('phoneNumInput').value);
+            let score = Number(document.getElementById('scoreInput').value);
+            const ScoreObj = new AV.Object('score');
+            console.log(ScoreObj);
+            // ScoreObj.set('name', name);
+            ScoreObj.set('score', score);
+            ScoreObj.set('phoneNumber', phoneNumber);
+            ScoreObj.save().then((score) => {
+                console.log(score);
+                confirm('成功');
+                document.getElementById('scoreInput').value = document.getElementById('phoneNumInput').value = ''
+            });
+        })
+    </script>
+</body>
+
+</html>

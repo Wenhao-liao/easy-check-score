@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成绩查询</title>
+    <!-- 存储服务 -->
+    <script src="//cdn.jsdelivr.net/npm/leancloud-storage@4.2.0/dist/av-min.js"></script>
+</head>
+
+<body>
+    <span>输入手机号码查成绩：</span><input id="phoneInput" type="text">
+    <br>
+    <button id="button">点击查询</button>
+
+    <script>
+        const { Query, User } = AV;
+        AV.init({
+            appId: "xSY1ggILh6dCv279HLcVqmKq-MdYXbMMI",
+            appKey: "oOCFKdB2PUkhJlcLTE8xWQUa",
+            serverURL: "https://please-replace-with-your-customized.domain.com"
+        });
+        console.log(AV);
+        // 点击获取上面input里面的value值，去数据库去查询获取对应的数据
+        button.addEventListener('click', function (e) {
+            console.log('查询成绩');
+            let phoneNumber = document.getElementById('phoneInput').value;
+            phoneNumber =  Number(phoneNumber);
+            const query = new AV.Query('score');
+            query.equalTo('phoneNumber', phoneNumber);
+            query.find().then((score) => {
+                // score 是包含满足条件的 score 对象的数组
+                console.log(score[0].attributes);
+                alert(`你这次阶段考的成绩是：${score[0].attributes.score}`)
+            });
+        })
+
+    </script>
+</body>
+</html>
