@@ -31,7 +31,18 @@
             query.find().then((score) => {
                 // score 是包含满足条件的 score 对象的数组
                 console.log(score[0].attributes);
-                alert(`你这次阶段考的成绩是：${score[0].attributes.score}`)
+                let tips = '请继续努力哦~'
+                if(score[0].attributes.score > 80){
+                    tips = '成绩很优秀，请继续努力哦~'
+                }
+                if(score[0].attributes.score < 80 && score[0].attributes.score >60 ){
+                    tips = '成绩还可以，加油加油加油，你是最棒的~'
+                }
+                if(score[0].attributes.score < 60 ){
+                    tips = '这次的成绩不太理想，要给多点精力和时间，迎头赶上哈~'
+                }
+                alert(`你这次阶段考的成绩是：${score[0].attributes.score}
+                ${tips}`)
             });
         })
 
